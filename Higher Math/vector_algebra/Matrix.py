@@ -110,11 +110,17 @@ class Matrix:
 	def __matmul__(self, matrix: typing.Self | Vector | int | float) -> typing.Self:
 		return self.__mul__(matrix)
 
+	def __imatmul__(self, matrix: typing.Self | Vector | int | float) -> typing.Self:
+		return self.__matmul__(matrix)
+	
+	def __rmatmul__(self, matrix: typing.Self | Vector | int | float) -> typing.Self:
+		return self.__matmul__(matrix)
+
 	def __pow__(self, step: int) -> typing.Self:
 		if step <= 0:
 			raise ValueError('')
 		
-		tmp: int = 1
+		tmp: int | Matrix = 1
 		for _ in range(step):
 			tmp *= self
 		
@@ -299,8 +305,12 @@ class Matrix:
 	def __iter__(self) -> typing.Iterator:
 		return self.__values.__iter__()
 	
-	def __getitem__(self, index: int) -> int | float:
+	def __getitem__(self, index: int | tuple) -> int | float:
 		"""..."""
+		if isinstance(index, tuple):
+			row, column = index
+			return self.__values[row * self.__columns + column]
+
 		return self.__values[index]
 	
 	def __setitem__(self, index: int, value: int | float) -> None:
@@ -314,4 +324,4 @@ class Matrix:
 		"""
 	
 if __name__ == '__main__':
-	...
+	pass
