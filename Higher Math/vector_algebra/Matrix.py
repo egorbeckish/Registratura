@@ -114,7 +114,11 @@ class Matrix:
 		if step <= 0:
 			raise ValueError('')
 		
-		return
+		tmp: int = 1
+		for _ in range(step):
+			tmp *= self
+		
+		return tmp
 
 	@property
 	def T(self) -> typing.Self:
@@ -310,4 +314,4 @@ class Matrix:
 		"""
 	
 if __name__ == '__main__':
-	pass
+	...
